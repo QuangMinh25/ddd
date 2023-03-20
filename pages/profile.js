@@ -93,11 +93,11 @@ const Profile = () => {
     /////////////
     const deleteOrder  = (id) => {
         confirmAlert({
-          title: 'Xác nhận xóa',
-          message: 'Bạn có chắc chắn muốn xóa đơn hàng này?',
+          title: 'Confirm Delete',
+          message: 'Are you sure you want to cancel this order?',
           buttons: [
             {
-              label: 'Xóa',
+              label: 'Delete',
               onClick: async () => {
                 // Thực hiện hành động xóa
                 try {
@@ -108,20 +108,18 @@ const Profile = () => {
     
                   if (deleteResponse.ok) {
                     // Nếu xóa thành công, cập nhật lại danh sách orders
-                    console.log("xóa Thành Công");
+                    location.reload();
                   } else {
-                    console.log("xóa thất bại 1");
                     throw new Error('Xóa đơn hàng thất bại');
                   }
                 } catch (error) {
                   console.error(error);
-                  console.log("xóa thất bại 2");
                   alert('Xóa đơn hàng thất bại');
                 }
               },
             },
             {
-              label: 'Hủy bỏ',
+              label: 'Cancel',
               onClick: () => {},
             },
           ],
