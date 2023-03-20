@@ -89,8 +89,9 @@ const Profile = () => {
             return dispatch({type: 'NOTIFY', payload: {success: res.msg}})
         })
     }
+    
     /////////////
-    const handleDeleteOrder = (id) => {
+    const deleteOrder  = (id) => {
         confirmAlert({
           title: 'Xác nhận xóa',
           message: 'Bạn có chắc chắn muốn xóa đơn hàng này?',
@@ -100,19 +101,21 @@ const Profile = () => {
               onClick: async () => {
                 // Thực hiện hành động xóa
                 try {
-                  const response = await fetch(`/order/${id}`, {
+                  const deleteResponse = await fetch(`/api/order/${id}`, {
                     method: 'DELETE',
                     headers: { 'Content-Type': 'application/json' },
                   });
     
-                  if (response.ok) {
+                  if (deleteResponse.ok) {
                     // Nếu xóa thành công, cập nhật lại danh sách orders
-                    console.log("xóa ss00");
+                    console.log("xóa Thành Công");
                   } else {
+                    console.log("xóa thất bại 1");
                     throw new Error('Xóa đơn hàng thất bại');
                   }
                 } catch (error) {
                   console.error(error);
+                  console.log("xóa thất bại 2");
                   alert('Xóa đơn hàng thất bại');
                 }
               },
@@ -124,6 +127,8 @@ const Profile = () => {
           ],
         });
       };
+
+//////////////////////
       
 
 
@@ -227,7 +232,7 @@ const Profile = () => {
                                                 }
                                             </td>
                                             <td className="p-2">
-                                                    <Button color="danger" onClick={() => handleDeleteOrder(order._id)}>Cancel Order</Button>
+                                                    <Button color="danger" onClick={() => deleteOrder (order._id)}>Cancel Order</Button>
                                             </td>
                                         </tr> 
                                     ))

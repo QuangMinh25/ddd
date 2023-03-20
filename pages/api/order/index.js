@@ -16,21 +16,8 @@ export default async(req, res) => {
         case "GET":
             await getOrders(req, res)
             break;
-        case "DELETE":
-            await deleteOrders(req, res)
-            break;
     }
 }
-///////
-const deleteOrders = async(req, res) => {
-    try {
-        orders = await Orders.deleteOne({ _id: result.id })
-    } catch (err) {
-        return res.status(500).json({err: err.message})
-    }
-}
-/////
-
 const getOrders = async(req, res) => {
     try {
         const result = await auth(req, res)
