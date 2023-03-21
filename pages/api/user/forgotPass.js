@@ -12,8 +12,7 @@ export default async(req, res) => {
             break;
     }
 }
-const { email } = req.body
-if(email != null){
+
 const forgotPassword = async (req, res) => {
     try {
       function generateRandomPassword(length) {
@@ -51,6 +50,7 @@ const forgotPassword = async (req, res) => {
   
       // Lưu hashed password vào database
       await User.findOneAndUpdate({ email: email }, { password: hashedPassword });
+      
       // Gửi email chứa password mới
       const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -78,12 +78,9 @@ const forgotPassword = async (req, res) => {
       }
   
       // Phản hồi về client
-      return res.json({ message: 'Password reset successfully.' });
+      res.json({ msg: "New password has been sent to your email !!!" })
     } catch (err) {
       console.error(err)
       return res.status(500).json({ error: err.message })
     }
   }
-}else{
-    console.log("khong nhap email");
-}
