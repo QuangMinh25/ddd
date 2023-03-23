@@ -26,6 +26,7 @@ const SalesReportPlot = ({ total, monthlySales }) => {
 };
 
 const SalesReport = () => {
+
   const [total, setTotal] = useState(0);
   const [monthlySales, setMonthlySales] = useState({ 1: 0, 2: 0, /* các giá trị mặc định cho các tháng khác */});
   const [loading, setLoading] = useState(true);
@@ -34,31 +35,47 @@ const SalesReport = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/orders', {
-          params: {
-            fromDate: '2023-01-01',
-            toDate: '2023-12-31',
+        const response = await fetch('/api/order/order', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
           },
+          body: JSON.stringify({
+            fromDate: '2023-01-01',
+            toDate: '2023-12-31'
+          })
         });
-        const orders = response.data;
+        const orders = await response.json();
         const total = orders.reduce((accumulator, order) => accumulator + order.total, 0);
-        const monthlySales = {
+        const fullYearSales = {
           1: 0,
           2: 0,
-          // Tương tự với các tháng khác
+          3: 0,
+          4: 0,
+          5: 0,
+          6: 0,
+          7: 0,
+          8: 0,
+          9: 0,
+          10: 0,
+          11: 0,
+          12: 0,
         };
         orders.forEach(order => {
           const month = order.dateOfPayment.getMonth() + 1;
-          monthlySales[month] += order.total;
+          fullYearSales[month] += order.total;
         });
+        setMonthlySales(fullYearSales);
         setTotal(total);
-        setMonthlySales(monthlySales);
         setLoading(false);
       } catch (error) {
         setError(error);
         setLoading(false);
       }
     };
+    
+    
+    
     fetchData();
   }, []);
 

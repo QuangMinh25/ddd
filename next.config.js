@@ -9,6 +9,4 @@ module.exports = {
         "CLOUD_NAME": "dzygop1hq",
         "CLOUD_API": "https://api.cloudinary.com/v1_1/dzygop1hq/image/upload"
     }
-
-
 }
