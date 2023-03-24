@@ -72,8 +72,10 @@ function NavBar() {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link  href="/">
-                <a className="navbar-brand">NHÀ SÁCH ĐÔNG NAM  Á</a>
+            <Link href="/">
+                <a className="navbar-brand">
+                    <img src="https://res.cloudinary.com/dykde8jnj/image/upload/v1679642544/336508493_940059563789425_1287563313732507732_n_m0iszq.png" alt="logo" height={80} width={80} />
+                </a>
             </Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
