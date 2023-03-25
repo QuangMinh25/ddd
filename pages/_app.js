@@ -3,13 +3,29 @@ import '../styles/filter.css'
 import Layout from '../components/Layout'
 import { DataProvider } from '../store/GlobalState'
 
+import { Provider as AuthProvider } from 'next-auth/client';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+
+
 function MyApp({ Component, pageProps }) {
+  const [session, setSession] = useState(null);
+  const router = useRouter();
+  useEffect(() => {
+    if (router.route === '/profile') {
+      if (!session) {
+        router.push('/');
+      }
+    }
+  }, [session, router]);
   return (
-    <DataProvider>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </DataProvider>
+    <AuthProvider session={pageProps.session}>
+      <DataProvider>
+        <Layout>
+          <Component {...pageProps} setSession={setSession} />
+        </Layout>
+      </DataProvider>
+    </AuthProvider>
   )
 }
 

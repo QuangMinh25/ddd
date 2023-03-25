@@ -5,10 +5,11 @@ import {DataContext} from '../store/GlobalState'
 import {postData} from '../utils/fetchData'
 import Cookie from 'js-cookie'
 import { useRouter } from 'next/router'
-import axios from 'axios';
+import { signIn, signOut, useSession } from 'next-auth/client';
 
 
 const Signin = () => {
+  const [session, loading] = useSession();
   const initialState = { email: '', password: '' }
   const [userData, setUserData] = useState(initialState)
   const { email, password } = userData
@@ -48,6 +49,11 @@ const Signin = () => {
   useEffect(() => {
     if(Object.keys(auth).length !== 0) router.push("/")
   }, [auth])
+  useEffect(() => {
+    if (session) {
+      router.push('/');
+    }
+  }, [session]);
 
   const [resetToken, setResetToken] = useState('');
 
@@ -75,6 +81,15 @@ const Signin = () => {
           </div>
           
           <button type="submit" className="btn btn-dark w-100">Login</button>
+          <p></p>
+          <>
+          {!session && (
+          <button onClick={() => signIn('google')} className="btn btn-primary w-100">Sign In with Google</button>
+          )}
+          {session && (
+        <button onClick={signOut}>Sign out</button>
+      )}
+       </>
 
           <p className="my-2">
             You don't have an account? <Link href="/register"><a style={{color: 'crimson'}}>Register Now</a></Link>
@@ -83,6 +98,9 @@ const Signin = () => {
           Forgot Password <Link href="/forgotPass"><a style={{color: 'crimson'}}>Forgot Password</a></Link>
           </p>
         </form>
+       
+          
+       
       </div>
     )
   }

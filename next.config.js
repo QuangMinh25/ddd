@@ -7,6 +7,8 @@ module.exports = {
         "PAYPAL_CLIENT_ID": "AYYWU3fLangt4AmM3R623zSdKJXhqbdGv13k3WzNPETdMvmoqSnruVZrfMxGUkR595mijTJFa87dr4ju",
         "CLOUD_UPDATE_PRESET": "vanhieu981",
         "CLOUD_NAME": "dzygop1hq",
-        "CLOUD_API": "https://api.cloudinary.com/v1_1/dzygop1hq/image/upload"
+        "CLOUD_API": "https://api.cloudinary.com/v1_1/dzygop1hq/image/upload",
+        "GOOGLE_CLIENT_ID":"862778676575-e7jnu2hgfcjduhjtl8ka1vrg5qkshkpu.apps.googleusercontent.com",
+        "GOOGLE_CLIENT_SECRET":"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"
     }
 }

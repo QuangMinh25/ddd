@@ -18,6 +18,7 @@
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.10.14",
         "next": "10.0.1",
+        "next-auth": "^3.29.10",
         "nodemailer": "^6.7.1",
         "plotly.js": "^2.20.0",
         "react": "^18.0.0",
