@@ -3,7 +3,10 @@ import Providers from 'next-auth/providers';
 import connectDB from '../../../utils/connectDB'
 import User from '../../../models/userModel'
 import bcrypt from 'bcrypt'
+import { createAccessToken } from '../../../utils/generateToken'
+
 connectDB()
+
 export default NextAuth({
   providers: [
     Providers.Google({
@@ -23,20 +26,29 @@ export default NextAuth({
       session.user.id = user.id;
       return Promise.resolve(session);
     },
-    async jwt(token, user, account) {
+    async jwt(token, user, account, profile, isNewUser) {
       if (user) {
         const existingUser = await User.findOne({ email: user.email });
-        const passwordHash = await bcrypt.hash("user123", 12)
         if (!existingUser) {
+          // Tạo mật khẩu ngẫu nhiên
+          const password = Math.random().toString(36).slice(-8);
+          const passwordHash = await bcrypt.hash(password, 12)
+          // Tạo người dùng mới
           const newUser = new User({
             email: user.email,
             name: user.name,
-            password: passwordHash
+            password: passwordHash,
+            googleId: account.id 
           });
           await newUser.save();
+          // Lưu mật khẩu vào token để trả về cho client
+          token.password = password;
+          existingUser = newUser;
         }
+        const accessToken = createAccessToken({ id: existingUser._id });
+        token.accessToken = accessToken;
       }
       return Promise.resolve(token);
     },
-  }
+  },
 });
