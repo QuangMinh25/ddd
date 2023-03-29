@@ -38,7 +38,8 @@ export default NextAuth({
             email: user.email,
             name: user.name,
             password: passwordHash,
-            googleId: account.id 
+            googleId: account.id ,
+            role: 'user' // Set default user role
           });
           await newUser.save();
           // Lưu mật khẩu vào token để trả về cho client
