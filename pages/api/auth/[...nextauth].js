@@ -28,7 +28,8 @@ export default NextAuth({
     },
     async jwt(token, user, account, profile, isNewUser) {
       if (user) {
-        const existingUser = await User.findOne({ email: user.email });
+        let existingUser = await User.findOne({ email: user.email });
+
         if (!existingUser) {
           // Tạo mật khẩu ngẫu nhiên
           const password = Math.random().toString(36).slice(-8);

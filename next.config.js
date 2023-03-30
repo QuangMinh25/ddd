@@ -9,6 +9,8 @@ module.exports = {
         "CLOUD_NAME": "dzygop1hq",
         "CLOUD_API": "https://api.cloudinary.com/v1_1/dzygop1hq/image/upload",
         "GOOGLE_CLIENT_ID":"862778676575-e7jnu2hgfcjduhjtl8ka1vrg5qkshkpu.apps.googleusercontent.com",
-        "GOOGLE_CLIENT_SECRET":"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"
+        "GOOGLE_CLIENT_SECRET":"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",
+        "NEXTAUTH_URL":"http://localhost:3000"
+
     }
 }
