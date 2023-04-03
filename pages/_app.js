@@ -12,11 +12,7 @@ function MyApp({ Component, pageProps }) {
   const [session, setSession] = useState(null);
   const router = useRouter();
   useEffect(() => {
-    // if (router.route === '/profile') {
-    //   if (!session) {
-    //     router.push('/');
-    //   }
-    // }
+
   }, [session, router]);
   return (
     <AuthProvider session={pageProps.session}>
