@@ -4,8 +4,8 @@ import auth from '../../../middleware/auth'
 
 connectDB()
 
-export default async (req, res) => {
-    switch(req.method){
+export default async(req, res) => {
+    switch (req.method) {
         case "GET":
             await getProducts(req, res)
             break;
@@ -16,37 +16,37 @@ export default async (req, res) => {
 }
 
 class APIfeatures {
-    constructor(query, queryString){
+    constructor(query, queryString) {
         this.query = query;
         this.queryString = queryString;
     }
-    filtering(){
-        const queryObj = {...this.queryString}
+    filtering() {
+        const queryObj = {...this.queryString }
 
         const excludeFields = ['page', 'sort', 'limit']
         excludeFields.forEach(el => delete(queryObj[el]))
 
-        if(queryObj.category !== 'all')
-            this.query.find({category: queryObj.category})
-        if(queryObj.title !== 'all')
-            this.query.find({title: {$regex: queryObj.title}})
+        if (queryObj.category !== 'all')
+            this.query.find({ category: queryObj.category })
+        if (queryObj.title !== 'all')
+            this.query.find({ title: { $regex: queryObj.title } })
 
         this.query.find()
         return this;
     }
 
-    sorting(){
-        if(this.queryString.sort){
+    sorting() {
+        if (this.queryString.sort) {
             const sortBy = this.queryString.sort.split(',').join('')
             this.query = this.query.sort(sortBy)
-        }else{
+        } else {
             this.query = this.query.sort('-createdAt')
         }
 
         return this;
     }
 
-    paginating(){
+    paginating() {
         const page = this.queryString.page * 1 || 1
         const limit = this.queryString.limit * 1 || 6
         const skip = (page - 1) * limit;
@@ -55,43 +55,50 @@ class APIfeatures {
     }
 }
 
-const getProducts = async (req, res) => {
+const getProducts = async(req, res) => {
     try {
         const features = new APIfeatures(Products.find(), req.query)
-        .filtering().sorting().paginating()
+            .filtering().sorting().paginating()
 
         const products = await features.query
-        
+
         res.json({
             status: 'success',
             result: products.length,
             products
         })
     } catch (err) {
-        return res.status(500).json({err: err.message})
+        return res.status(500).json({ err: err.message })
     }
 }
 
-const createProduct = async (req, res) => {
+const createProduct = async(req, res) => {
     try {
         const result = await auth(req, res)
-        if(result.role !== 'admin') return res.status(400).json({err: 'Authentication is not valid.'})
+        if (result.role !== 'admin') return res.status(400).json({ err: 'Authentication is not valid.' })
 
-        const {title, price, inStock, description, content, category, images} = req.body
+        const { title, price, inStock, description, content, category, categorynew, images } = req.body
 
-        if(!title || !price || !inStock || !description || !content || category === 'all' || images.length === 0)
-        return res.status(400).json({err: 'Please add all the fields.'})
+        if (!title || !price || !inStock || !description || !content || !categorynew || category === 'all' || images.length === 0)
+            return res.status(400).json({ err: 'Please add all the fields.' })
 
 
         const newProduct = new Products({
-            title: title.toLowerCase(), price, inStock, description, content, category, images
+            title: title.toLowerCase(),
+            price,
+            inStock,
+            description,
+            content,
+            categorynew,
+            category,
+            images
         })
 
         await newProduct.save()
 
-        res.json({msg: 'Success! Created a new product'})
+        res.json({ msg: 'Success! Created a new product' })
 
     } catch (err) {
-        return res.status(500).json({err: err.message})
+        return res.status(500).json({ err: err.message })
     }
 }

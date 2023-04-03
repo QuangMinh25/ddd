@@ -12,10 +12,11 @@ const ProductsManager = () => {
         inStock: 0,
         description: '',
         content: '',
-        category: ''
+        category: '',
+        categorynew: ''
     }
     const [product, setProduct] = useState(initialState)
-    const {title, price, inStock, description, content, category} = product
+    const {title, price, inStock, description, content, category,categorynew} = product
 
     const [images, setImages] = useState([])
 
@@ -87,7 +88,7 @@ const ProductsManager = () => {
         if(auth.user.role !== 'admin') 
         return dispatch({type: 'NOTIFY', payload: {error: 'Authentication is not valid.'}})
 
-        if(!title || !price || !inStock || !description || !content || category === 'all' || images.length === 0)
+        if(!title || !price || !inStock || !description || !content || !categorynew || category === 'all' || images.length === 0)
         return dispatch({type: 'NOTIFY', payload: {error: 'Please add all the fields.'}})
 
     
@@ -160,6 +161,16 @@ const ProductsManager = () => {
                             }
                         </select>
                     </div>
+                    <div className="input-group-prepend px-0 my-2">
+                        <select name="categorynew" id="categorynew" value={categorynew.value}
+                        onChange={handleChangeInput} className="custom-select text-capitalize">
+                        <option value="1">Sách</option>
+                            <option value="2">Dụng Cụ Học Tập</option>
+                           
+                
+                        </select>
+                    </div>
+
 
                     <button type="submit" className="btn btn-info my-2 px-4">
                         {onEdit ? 'Update': 'Create'}
