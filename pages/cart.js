@@ -95,7 +95,13 @@ const Cart = () => {
   const priceTaShip = total > 5 ? 0 : 1;
   
   if( cart.length === 0 ) 
-    return <img className="img-responsive w-100" src="/empty_cart.jpg" alt="not empty"/>
+    return (
+      <div>
+         <a href="/" style={{ color: 'blue', fontSize: '25px' }}> => Go to Shipping</a>
+    <img className="img-responsive w-100" src="/empty_cart.jpg" alt="not empty"/>
+      </div>
+    )
+   
 
     return(
       <div className="row mx-auto">
