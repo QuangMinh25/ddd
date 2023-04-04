@@ -5,7 +5,11 @@ const CategoriesSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true
-    }
+    } ,
+     categorytype: {
+        type: String,
+        required: true
+    },
 }, {
     timestamps: true
 })

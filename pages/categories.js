@@ -5,9 +5,21 @@ import {updateItem} from '../store/Actions'
 import { postData, putData } from "../utils/fetchData";
 
 const Categories = () => {
-    const [name, setName] = useState('')
-
+    const initialState = {
+        categorytype: ''
+        
+    }
     const {state, dispatch} = useContext(DataContext)
+    const [categorys, setCategorys] = useState(initialState)
+    const handleChangeInput = e => {
+        const {name, value} = e.target
+        setCategorys({...categorys, [name]:value})
+        dispatch({type: 'NOTIFY', payload: {}})
+    }
+    const [name, setName] = useState('')
+    const {categorytype} = categorys
+
+   
     const {categories, auth} = state
     
     const [id, setId] = useState('')
@@ -16,18 +28,20 @@ const Categories = () => {
         if(auth.user.role !== 'admin')
         return dispatch({type: 'NOTIFY', payload: {error: 'Authentication is not vaild.'}})
 
-        if(!name) return dispatch({type: 'NOTIFY', payload: {error: 'Name can not be left blank.'}})
-
+        if(!name) return dispatch({type: 'NOTIFY', payload: {error: 'Name Can not be left blank.'}})
+        if(!categorytype) return dispatch({type: 'NOTIFY', payload: {error: 'Type Can not be left blank.'}})
         dispatch({type: 'NOTIFY', payload: {loading: true}})
+        const data = { name, categorytype };
 
         let res;
         if(id){
-            res = await putData(`categories/${id}`, {name}, auth.token)
+           // res = await putData(`categories/${id}`, {data}, auth.token)
+            res = await putData(`categories/${id}`, data, auth.token)
             if(res.err) return dispatch({type: 'NOTIFY', payload: {error: res.err}})
             dispatch(updateItem(categories, id, res.category, 'ADD_CATEGORIES'))
 
         }else{
-            res = await postData('categories', {name}, auth.token)
+            res = await postData('categories', data, auth.token)
             if(res.err) return dispatch({type: 'NOTIFY', payload: {error: res.err}})
             dispatch({type: "ADD_CATEGORIES", payload: [...categories, res.newCategory]})
         }
@@ -51,6 +65,12 @@ const Categories = () => {
                 <input type="text" className="form-control"
                 placeholder="Add a new category" value={name}
                 onChange={e => setName(e.target.value)} />
+                 <select name="categorytype" id="categorytype" value={categorytype}
+                 onChange={handleChangeInput} className="form-control">
+                <option value="1">Sách</option>
+                <option value="2">Dụng Cụ Học Tập</option>
+                 </select>
+                   
 
                 <button className="btn btn-secondary ml-1"
                 onClick={createCategory}>

@@ -77,9 +77,9 @@ const createProduct = async(req, res) => {
         const result = await auth(req, res)
         if (result.role !== 'admin') return res.status(400).json({ err: 'Authentication is not valid.' })
 
-        const { title, price, inStock, description, content, category, categorynew, images } = req.body
+        const { title, price, inStock, description, content, category, images } = req.body
 
-        if (!title || !price || !inStock || !description || !content || !categorynew || category === 'all' || images.length === 0)
+        if (!title || !price || !inStock || !description || !content  || category === 'all' || images.length === 0)
             return res.status(400).json({ err: 'Please add all the fields.' })
 
 
@@ -89,7 +89,6 @@ const createProduct = async(req, res) => {
             inStock,
             description,
             content,
-            categorynew,
             category,
             images
         })

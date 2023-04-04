@@ -11,7 +11,9 @@ const Filter  = ({state}) => {
   const [sort, setSort] = useState('')
   const [category, setCategory] = useState('')
 
-  const {categories} = state
+  //const {categories} = state
+  const categories = state.categories.filter(cat => cat.categorytype === '1');
+  const categories2 = state.categories.filter(cat => cat.categorytype === '2');
 
   const router = useRouter()
 
@@ -26,9 +28,17 @@ const Filter  = ({state}) => {
 
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  const handleSelectCategory = (categoryId) => {
+  const handleSelectCategorySach = (categoryId) => {
     setSelectedCategory(categoryId);
-     filterSearch({router, category: categoryId});
+     const selectedCat = categories.find(cat => cat._id === categoryId && cat.categorytype === '1');
+     filterSearch({router, category: selectedCat && selectedCat._id});
+    // Yêu cầu router và filterSearch được truyền vào từ đâu đó khác.
+    // Nếu không sẽ gây lỗi ReferenceError.
+  };
+  const handleSelectCategoryDCHT = (categoryId) => {
+    setSelectedCategory(categoryId);
+     const selectedCat = categories2.find(cat => cat._id === categoryId && cat.categorytype === '2');
+     filterSearch({router, category: selectedCat && selectedCat._id});
     // Yêu cầu router và filterSearch được truyền vào từ đâu đó khác.
     // Nếu không sẽ gây lỗi ReferenceError.
   };
@@ -49,16 +59,26 @@ const Filter  = ({state}) => {
       <DropdownMenu >
         <div className="d-flex flex-column flex-md-row">
           <div>
-            <h5>Category 1</h5>
-            <DropdownItem onClick={() => handleSelectCategory("all")}>All Products</DropdownItem>
+            <h5 style={{color:'blue',textAlign: 'center'}}>Books </h5>
+           
         {categories.map(cat => (
-          <DropdownItem key={cat._id} onClick={() => handleSelectCategory(cat._id)}>
+          <DropdownItem key={cat._id} onClick={() => handleSelectCategorySach(cat._id)}>
             {cat.name}
           </DropdownItem>
         ))}
       </div>
           <div>
-            <h5>Category 2</h5>
+           
+            <h5 style={{color:'blue',textAlign: 'center'}}>Learning tools </h5>
+            {categories2.map(cat => (
+          <DropdownItem key={cat._id} onClick={() => handleSelectCategoryDCHT(cat._id)}>
+            {cat.name}
+          </DropdownItem>
+        ))}
+          </div>
+          <div>
+            
+            <h5 style={{color:'blue',textAlign: 'center'}}>Bộ Lọc </h5>
             <DropdownItem onClick={() => handleSort('-createdAt')}>Newest</DropdownItem>
             <DropdownItem onClick={() => handleSort('oldest')}>Oldest</DropdownItem>
             <DropdownItem onClick={() => handleSort('-sold')}>Best sales</DropdownItem>

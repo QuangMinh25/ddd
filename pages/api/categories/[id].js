@@ -23,9 +23,9 @@ const updateCategory = async (req, res) => {
         return res.status(400).json({err: "Authentication is not valid."})
 
         const {id} = req.query
-        const {name} = req.body
+        const {name,categorytype} = req.body
 
-        const newCategory = await Categories.findOneAndUpdate({_id: id}, {name})
+        const newCategory = await Categories.findOneAndUpdate({_id: id}, {name,categorytype})
         res.json({
             msg: "Success! Update a new category",
             category: {

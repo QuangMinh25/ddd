@@ -27,10 +27,6 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    categorynew: {
-        type: String,
-        required: true
-    },
     checked: {
         type: Boolean,
         default: false

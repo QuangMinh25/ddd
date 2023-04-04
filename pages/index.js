@@ -7,6 +7,7 @@ import ProductItem from '../components/product/ProductItem'
 import filterSearch from '../utils/filterSearch'
 import {useRouter} from 'next/router'
 import Filter from '../components/Filter'
+import Footer from '../components/Footer'
 
 const Home = (props) => {
   const [products, setProducts] = useState(props.products)
@@ -100,8 +101,9 @@ const Home = (props) => {
           Load more
         </button>
       }
-    
+    <Footer />
     </div>
+    
   )
 }
 
