@@ -33,10 +33,14 @@ img{
 @import url("./products_manager.css");
 
 footer {
+  position: fixed;
+ bottom: 0;
+  left: 0;
   width: 100%;
   height: 200px; /* hoặc tùy chỉnh chiều cao của footer */
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black; /* hoặc màu sắc tùy chỉnh khác */
+  background-color: darkgray; /* hoặc màu sắc tùy chỉnh khác */
 }
+

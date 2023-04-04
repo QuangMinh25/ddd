@@ -18,7 +18,7 @@ const Cart = () => {
 
   const [callback, setCallback] = useState(false)
   const router = useRouter()
- 
+
 
   useEffect(() => {
     const getTotal = () => {
@@ -94,13 +94,18 @@ const Cart = () => {
   }
   const priceTaShip = total > 5 ? 0 : 1;
   
-  if( cart.length === 0 ) 
+  if (cart.length === 0) {
     return (
       <div>
-         <a href="/" style={{ color: 'blue', fontSize: '25px' }}> => Go to Shipping</a>
-    <img className="img-responsive w-100" src="/empty_cart.jpg" alt="not empty"/>
+        <Link href="/">
+          <a className="btn btn-primary mt-3">Return to home</a>
+        </Link>
+        <br/>
+        <img className="img-responsive w-100" src="/empty_cart.jpg" alt="not empty"/>
       </div>
-    )
+    );
+  }
+  
    
 
     return(
