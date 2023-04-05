@@ -23,7 +23,7 @@ const Cart = () => {
   useEffect(() => {
     const getTotal = () => {
       const res = cart.reduce((prev, item) => {
-        return prev + (item.price * item.quantity)
+        return prev + (item.price*((100-item.discount)*0.01) * item.quantity)
       },0)
 
       setTotal(res)
@@ -39,10 +39,10 @@ const Cart = () => {
       const updateCart = async () => {
         for (const item of cartLocal){
           const res = await getData(`product/${item._id}`)
-          const { _id, title, images, price, inStock, sold } = res.product
+          const { _id, title, images, price, inStock, sold,discount } = res.product
           if(inStock > 0){
             newArr.push({ 
-              _id, title, images, price, inStock, sold,
+              _id, title, images, price, inStock, sold,discount,
               quantity: item.quantity > inStock ? 1 : item.quantity
             })
           }
@@ -90,8 +90,14 @@ const Cart = () => {
       dispatch({ type: 'NOTIFY', payload: {success: res.msg} })
       return router.push(`/order/${res.newOrder._id}`)
     })
+    caches
+    
+
+      
+    
 
   }
+ 
   const priceTaShip = total > 5 ? 0 : 1;
   
   if (cart.length === 0) {
@@ -127,7 +133,8 @@ const Cart = () => {
             </tbody>
           </table>
         </div>
-
+    
+        
         <div className="col-md-4 my-3 text-right text-uppercase text-secondary">
             <form>
               <h2>Shipping</h2>
@@ -143,6 +150,7 @@ const Cart = () => {
               onChange={e => setMobile(e.target.value)} />
             </form>
             <h5>Shipping fee: <span className="text-danger">${priceTaShip}</span></h5>
+           
             <h3>Total: <span className="text-danger">${total+priceTaShip}</span></h3>
             
             

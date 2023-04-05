@@ -90,7 +90,7 @@ const OrderDetail = ({orderDetail, state, dispatch}) => {
                                         </h5>
 
                                         <span className="text-info m-0">
-                                            {item.quantity} x ${item.price} = ${item.price * item.quantity}
+                                            {item.quantity} x ${item.price*((100-item.discount)*0.01)} = ${item.price*((100-item.discount)*0.01) * item.quantity}
                                         </span>
 
                                     </div>

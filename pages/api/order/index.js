@@ -65,7 +65,7 @@ const createOrder = async(req, res) => {
 
 
                 const nameItem = product.title;
-                const priceItem = product.price;
+                const priceItem = product.price*((100-product.discount)*0.01);
                 const priceTaShip = priceItem > 5 ? 0 : 1;
                 console.log("sipe " + priceTaShip);
                 console.log("name pro: " + nameItem);

@@ -12,10 +12,11 @@ const ProductsManager = () => {
         inStock: 0,
         description: '',
         content: '',
-        category: ''
+        category: '',
+        discount: 0
     }
     const [product, setProduct] = useState(initialState)
-    const {title, price, inStock, description, content, category} = product
+    const {title, price, inStock, description, content, category,discount} = product
 
     const [images, setImages] = useState([])
 
@@ -124,10 +125,16 @@ const ProductsManager = () => {
                     onChange={handleChangeInput} />
 
                     <div className="row">
-                        <div className="col-sm-6">
+                        <div className="col-sm-3">
                             <label htmlFor="price">Price</label>
                             <input type="number" name="price" value={price}
                             placeholder="Price" className="d-block w-100 p-2"
+                            onChange={handleChangeInput} />
+                        </div>
+                        <div className="col-sm-3">
+                            <label htmlFor="discount">Discount</label>
+                            <input type="number" name="discount" value={discount}
+                            placeholder="Discount" className="d-block w-100 p-2"
                             onChange={handleChangeInput} />
                         </div>
 

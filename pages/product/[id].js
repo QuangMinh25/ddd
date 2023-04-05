@@ -41,7 +41,16 @@ const DetailProduct = (props) => {
 
             <div className="col-md-6 mt-3">
                 <h2 className="text-uppercase">{product.title}</h2>
-                <h5 className="text-danger">${product.price}</h5>
+                
+                <h6 className="">
+  <span style={{ textDecoration: 'line-through' }}>
+    ${product.price}
+  </span>{' '}
+  (-{product.discount}%)
+</h6>
+               
+                
+                    <h6 className="text-danger">${product.price*((100-product.discount)*0.01)}</h6>
 
                 <div className="row mx-0 d-flex justify-content-between">
                     {

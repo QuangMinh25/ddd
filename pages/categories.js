@@ -67,6 +67,7 @@ const Categories = () => {
                 onChange={e => setName(e.target.value)} />
                  <select name="categorytype" id="categorytype" value={categorytype}
                  onChange={handleChangeInput} className="form-control">
+                <option value="">Choose a category Type</option>
                 <option value="1">Sách</option>
                 <option value="2">Dụng Cụ Học Tập</option>
                  </select>

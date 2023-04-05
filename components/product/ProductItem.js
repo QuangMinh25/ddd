@@ -61,15 +61,22 @@ const ProductItem = ({product, handleCheck}) => {
                 <h5 className="card-title text-capitalize" title={product.title}>
                     {product.title}
                 </h5>
-
+                <h6 className="">
+  <span style={{ textDecoration: 'line-through' }}>
+    ${product.price}
+  </span>{' '}
+  (-{product.discount}%)
+</h6>
                 <div className="row justify-content-between mx-0">
-                    <h6 className="text-danger">${product.price}</h6>
+                
+                    <h6 className="text-danger">${product.price*((100-product.discount)*0.01)}</h6>
                     {
                         product.inStock > 0
                         ? <h6 className="text-danger">In Stock: {product.inStock}</h6>
                         : <h6 className="text-danger">Out Stock</h6>
                     }
                 </div>
+               
 
                 <p className="card-text" title={product.description}>
                     {product.description}
