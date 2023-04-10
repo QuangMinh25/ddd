@@ -110,11 +110,11 @@ const Profile = () => {
                     // Nếu xóa thành công, cập nhật lại danh sách orders
                     location.reload();
                   } else {
-                    throw new Error('Xóa đơn hàng thất bại');
+                    throw new Error('Cannot delete a paid order');
                   }
                 } catch (error) {
                   console.error(error);
-                  alert('Xóa đơn hàng thất bại');
+                  alert('Cannot delete a paid order');
                 }
               },
             },

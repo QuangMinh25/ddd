@@ -33,7 +33,7 @@ img{
 @import url("./products_manager.css");
 
 footer {
-  position: fixed;
+  /*position: fixed;*/
  bottom: 0;
   left: 0;
   width: 100%;

@@ -8,10 +8,16 @@ export default async (req, res) => {
     case 'DELETE':
       try {
         const { id } = req.query;
+        const order = await Orders.findById(id, 'paid');
+        if (order.paid) {
+          return res.status(404).json({ success: false, message: 'Cannot delete a paid order' });
+        }
+        
         const deletedOrder = await Orders.findByIdAndRemove(id);
         if (!deletedOrder) {
           return res.status(404).json({ success: false, message: 'Order not found' });
         }
+        
         res.status(204).json({ success: true, message: 'Order deleted successfully' });
       } catch (error) {
         console.error(error);
